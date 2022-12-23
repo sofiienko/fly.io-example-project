@@ -25,7 +25,7 @@ DEBUG = False
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = uuid.uuid4()
 
-ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1", "hello-django.fly.dev"]
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1", "test-docker-app.fly.dev"]
 
 # Application definition
 
