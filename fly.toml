@@ -1,4 +1,4 @@
-app = "hello-django"
+app = "test-docker-app"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
