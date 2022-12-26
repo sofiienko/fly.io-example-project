@@ -130,3 +130,4 @@ dmypy.json
 /hello_django/static/
 /WebApplication2/WebApplication2/bin/
 /WebApplication2/WebApplication2/obj/
+WebApplication2/.vs/

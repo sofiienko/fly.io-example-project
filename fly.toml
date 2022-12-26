@@ -1,7 +1,7 @@
 app = "test-docker-app"
 
 [build]
-  dockerfile = "WebApplication2/WebApplication2/Dockerfile" 
+  dockerfile = "WebApplication2/Dockerfile" 
   
 kill_signal = "SIGINT"
 kill_timeout = 5
