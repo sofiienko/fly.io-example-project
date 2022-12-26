@@ -1,17 +1,22 @@
-ARG PYTHON_VERSION=3.9
-ARG PYTHON_BUILD_VERSION=$PYTHON_VERSION-buster
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM python:${PYTHON_BUILD_VERSION}
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
 
-RUN mkdir -p /opt/src
-WORKDIR /opt/src
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["WebApplication2/WebApplication2.csproj", "WebApplication2/"]
+RUN dotnet restore "WebApplication2/WebApplication2.csproj"
+COPY . .
+WORKDIR "/src/WebApplication2"
+RUN dotnet build "WebApplication2.csproj" -c Release -o /app/build
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
+FROM build AS publish
+RUN dotnet publish "WebApplication2.csproj" -c Release -o /app/publish
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY hello_django .
-
-CMD bash ./entrypoint.sh
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "WebApplication2.dll"]

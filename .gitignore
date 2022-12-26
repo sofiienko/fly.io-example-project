@@ -128,6 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /hello_django/static/
-/WebApplication2/WebApplication2/bin/
-/WebApplication2/WebApplication2/obj/
-WebApplication2/.vs/
+**/bin/
+**/obj/
+**/.vs/
