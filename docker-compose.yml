@@ -1,31 +1,10 @@
 version: "3.8"
 
-x-backend-base: &backendbase
-  build:
-    context: .
-    dockerfile: Dockerfile
-  volumes:
-    - ./hello_django:/opt/src/:cached
-  restart: unless-stopped
-  tty: true
-  env_file:
-    - .env.example
-
 
 services:
-  web:
-    <<: *backendbase
-    expose:
-      - 8000
-    ports:
-      - 8000:8000
-    depends_on:
-      - db
-      - release
 
   db:
-    image: postgres:12.5
-    command: -c fsync=off
+    image: postgres:15
     restart: unless-stopped
     ports:
       - 5432:5432
@@ -38,12 +17,6 @@ services:
       - POSTGRES_USER=postgres_user
       - POSTGRES_PASSWORD=postgres_password
 
-  release:
-    <<: *backendbase
-    restart: 'no'
-    command: ["python", "manage.py", "migrate", "--noinput"]
-    depends_on:
-      - db
 
 
 volumes:
