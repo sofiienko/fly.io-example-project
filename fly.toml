@@ -1,5 +1,8 @@
 app = "test-docker-app"
 
+[build.args]
+  MODE="test"
+  
 [build]
   dockerfile = "WebApplication2/Dockerfile" 
   
